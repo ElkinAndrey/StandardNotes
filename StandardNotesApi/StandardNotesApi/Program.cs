@@ -12,6 +12,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(options =>
+    options.WithOrigins(builder.Configuration.GetSection("ClientUrl").Value!)
+        .AllowAnyHeader()
+        .AllowAnyMethod()
+        .AllowCredentials());
+
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
