@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using StandardNotesApi.Dto;
 using StandardNotesApi.Entities;
 using StandardNotesApi.Store;
 
@@ -26,7 +25,7 @@ namespace StandardNotesApi.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult Create(NoteTypeDto type)
+        public IActionResult Create(NoteType type)
         {
             NoteType newType = new NoteType()
             {
@@ -37,7 +36,7 @@ namespace StandardNotesApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, NoteTypeDto type)
+        public IActionResult Update(Guid id, NoteType type)
         {
             var newType = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (newType == null)
