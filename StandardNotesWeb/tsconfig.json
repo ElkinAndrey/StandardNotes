@@ -1,7 +1,34 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "es5",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true, // Включить строгую проверку типов
+    "noUnusedLocals": true, // Запретить неиспользуемые локальные переменные
+    "noUnusedParameters": true, // Запретить неиспользуемые параметры
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+    "noImplicitReturns": true, // Запретить неявные возвращаемые значения
+    "sourceMap": true, // Включить генерацию карты исходного кода
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "allowJs": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "checkJs": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src"]
 }
