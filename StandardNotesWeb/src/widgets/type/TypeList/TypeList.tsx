@@ -6,6 +6,7 @@ import TypeListProps from "./TypeList.props";
 const TypeList: FC<TypeListProps> = ({ types = [], isLoading = false, isError = false }) => {
   if (isLoading) return <TypeListSkeleton />;
   if (isError) return <h2>Ошибка</h2>;
+  if ((types ?? []).length === 0) return <h2>Список пуст</h2>;
 
   return (
     <div className={classes.root}>
