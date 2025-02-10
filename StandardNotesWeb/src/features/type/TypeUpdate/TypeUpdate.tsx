@@ -3,19 +3,27 @@ import classes from "./TypeUpdate.module.scss";
 import TypeUpdateProps from "./TypeUpdate.props";
 import { Type } from "@/shared/entities";
 import { TypeHooks } from "@/entities/type";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 
 const TypeUpdate: FC<TypeUpdateProps> = ({ isOpen = false, onClose = () => {}, type = null }) => {
   const [newType, setNewType] = useState<Type>({ id: "", name: "" });
-  const [updateType, { isLoading, isError }] = TypeHooks.useUpdate();
+  const [updateType, { isLoading }] = TypeHooks.useUpdate();
 
   const setName = (value: string) => setNewType({ ...newType, name: value });
 
-  const handlerCreate = async () => {
+  const handlerUpdate = async () => {
     try {
       await updateType(newType).unwrap();
       onClose();
-    } catch {
-      console.log("Ошибка");
+    } catch (error) {
+      console.log("ОШИБКА ПРИ ИЗМЕНЕНИИ", error);
     }
   };
 
@@ -24,20 +32,24 @@ const TypeUpdate: FC<TypeUpdateProps> = ({ isOpen = false, onClose = () => {}, t
     setNewType({ ...newType });
   }, [type]);
 
-  if (!isOpen) return null;
-
   return (
-    <div className={classes.root}>
-      <h2>Изменение</h2>
-      <div>{newType.id}</div>
-      <div>{`isLoading : ${isLoading}`}</div>
-      <div>{`isError : ${isError}`}</div>
-      <input value={newType.name} onChange={(e) => setName(e.target.value)} />
-      <div>
-        <button onClick={onClose}>Отмена</button>
-        <button onClick={handlerCreate}>Изменить</button>
-      </div>
-    </div>
+    <Dialog open={isOpen} onClose={onClose}>
+      <DialogTitle>Изменить тип</DialogTitle>
+      <DialogContent>
+        <TextField
+          value={newType.name}
+          onChange={(e) => setName(e.target.value)}
+          label="Название"
+          variant="filled"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Отмена</Button>
+        <Button onClick={handlerUpdate} loading={isLoading}>
+          Изменить
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 
