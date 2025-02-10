@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using StandardNotesApi.Dto;
 using StandardNotesApi.Entities;
 using StandardNotesApi.Store;
 
@@ -33,7 +34,7 @@ namespace StandardNotesApi.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> Create(NoteType type)
+        public async Task<IActionResult> Create(NoteTypeDto type)
         {
             await Task.Delay(300);
             Random random = new Random();
@@ -67,7 +68,7 @@ namespace StandardNotesApi.Controllers
             await Task.Delay(300);
             Random random = new Random();
             if (random.NextDouble() < 0.2) throw new Exception();
-
+                
             var newType = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (newType == null)
                 return new ObjectResult("Type not found") { StatusCode = 404 };
