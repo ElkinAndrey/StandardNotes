@@ -25,7 +25,7 @@ const TypeRemove: FC<TypeRemoveProps> = ({ isOpen = false, onClose = () => {}, t
   return (
     <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle>Удалить тип</DialogTitle>
-      <DialogContent>{`Тип с id ${newType.id} и именем ${newType.name}`}</DialogContent>
+      <DialogContent>{`Вы уверены, что хотите удалить тип "${newType.name}"`}</DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Отмена</Button>
         <Button onClick={handlerRemove} loading={isLoading}>
