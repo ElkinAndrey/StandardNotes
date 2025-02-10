@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import classes from "./TypeCreate.module.scss";
 import { Type } from "@/shared/entities";
 import { TypeHooks } from "@/entities/type";
+import TypeCreateProps from "./TypeCreate.props";
 
-const TypeCreate = () => {
-  const [type, setType] = useState<Type>({ id: "", name: "" });
-  const setName = (value: string) => setType({ ...type, name: value });
+const TypeCreate: FC<TypeCreateProps> = ({ isOpen = false, onClose = () => {} }) => {
+  const [newType, setNewType] = useState<Type>({ id: "", name: "" });
+  const setName = (value: string) => setNewType({ ...newType, name: value });
   const [createType, { isLoading, isError }] = TypeHooks.useCreate();
 
-  const handlerCreate = () => {
-    createType(type);
+  const handlerCreate = async () => {
+    try {
+      await createType(newType).unwrap();
+      onClose();
+    } catch {
+      console.log("Ошибка");
+    }
   };
+
+  if (!isOpen) return null;
 
   return (
     <div className={classes.root}>
@@ -20,6 +28,7 @@ const TypeCreate = () => {
         <div>{`isError : ${isError}`}</div>
         <input onChange={(e) => setName(e.target.value)} />
       </div>
+      <button onClick={onClose}>Отмена</button>
       <button onClick={handlerCreate}>Добавить</button>
     </div>
   );

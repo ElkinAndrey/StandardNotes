@@ -10,8 +10,13 @@ const TypeUpdate: FC<TypeUpdateProps> = ({ isOpen = false, onClose = () => {}, t
 
   const setName = (value: string) => setNewType({ ...newType, name: value });
 
-  const handlerCreate = () => {
-    updateType(newType);
+  const handlerCreate = async () => {
+    try {
+      await updateType(newType).unwrap();
+      onClose();
+    } catch {
+      console.log("Ошибка");
+    }
   };
 
   useEffect(() => {
