@@ -1,36 +1,52 @@
-import { FC, useState } from "react";
-import classes from "./TypeCreate.module.scss";
+import { FC, useEffect, useState } from "react";
 import { Type } from "@/shared/entities";
 import { TypeHooks } from "@/entities/type";
 import TypeCreateProps from "./TypeCreate.props";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 
 const TypeCreate: FC<TypeCreateProps> = ({ isOpen = false, onClose = () => {} }) => {
   const [newType, setNewType] = useState<Type>({ id: "", name: "" });
   const setName = (value: string) => setNewType({ ...newType, name: value });
-  const [createType, { isLoading, isError }] = TypeHooks.useCreate();
+  const [createType, { isLoading }] = TypeHooks.useCreate();
 
   const handlerCreate = async () => {
     try {
       await createType(newType).unwrap();
       onClose();
-    } catch {
-      console.log("Ошибка");
+    } catch (error) {
+      console.log("ОШИБКА ПРИ ДОБАВЛЕНИИ", error);
     }
   };
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (isOpen) setNewType({ id: "", name: "" });
+  }, [isOpen]);
 
   return (
-    <div className={classes.root}>
-      <h2>Добавление</h2>
-      <div>
-        <div>{`isLoading : ${isLoading}`}</div>
-        <div>{`isError : ${isError}`}</div>
-        <input onChange={(e) => setName(e.target.value)} />
-      </div>
-      <button onClick={onClose}>Отмена</button>
-      <button onClick={handlerCreate}>Добавить</button>
-    </div>
+    <Dialog open={isOpen} onClose={onClose}>
+      <DialogTitle>Добавить тип</DialogTitle>
+      <DialogContent>
+        <TextField
+          value={newType.name}
+          onChange={(e) => setName(e.target.value)}
+          label="Название"
+          variant="filled"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Отмена</Button>
+        <Button onClick={handlerCreate} loading={isLoading}>
+          Добавить
+        </Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

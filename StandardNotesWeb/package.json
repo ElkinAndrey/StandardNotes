@@ -12,6 +12,9 @@
     "format": "prettier --write ./**/*.{js,jsx,ts,tsx,json,css,html}"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^6.4.3",
     "@reduxjs/toolkit": "^2.5.1",
     "prettier": "^3.5.0",
     "react": "^19.0.0",
