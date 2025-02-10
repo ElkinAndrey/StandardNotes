@@ -18,7 +18,6 @@ const TypeCreate = () => {
       <div>
         <div>{`isLoading : ${isLoading}`}</div>
         <div>{`isError : ${isError}`}</div>
-
         <input onChange={(e) => setName(e.target.value)} />
       </div>
       <button onClick={handlerCreate}>Добавить</button>
