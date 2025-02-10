@@ -4,19 +4,26 @@ import { Type } from "@/shared/entities";
 const typeApi = createApi({
   reducerPath: "types",
   baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:7079/api" }),
+  tagTypes: ["Post"],
   endpoints: (builder) => ({
-    getTypes: builder.query<Type[], { start: number; length: number }>({
+    get: builder.query<Type[], { start: number; length: number }>({
       query: ({ start, length }) => ({ url: `/types`, params: { start, length } }),
+      providesTags: (result) => ["Post"],
     }),
-    getTypeById: builder.query<Type, string>({
-      query: (id) => `/types/${id}`,
+    getById: builder.query<Type, string>({
+      query: (id) => ({ url: `/types/${id}` }),
+    }),
+    create: builder.mutation<Type, Type>({
+      query: (type) => ({ url: `/types`, method: "POST", body: type }),
+      invalidatesTags: ["Post"],
     }),
   }),
 });
 
 class TypeHooks {
-  public static useGet = typeApi.useGetTypesQuery;
-  public static useGetById = typeApi.useGetTypeByIdQuery;
+  public static useGet = typeApi.useGetQuery;
+  public static useGetById = typeApi.useGetByIdQuery;
+  public static useCreate = typeApi.useCreateMutation;
 }
 
 export { TypeHooks };
