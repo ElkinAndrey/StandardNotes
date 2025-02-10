@@ -9,15 +9,17 @@ namespace StandardNotesApi.Controllers
     public class NoteTypeController : ControllerBase
     {
         [HttpGet("")]
-        public IActionResult Get(int start = 0, int length = 10)
+        public async Task<IActionResult> Get(int start = 0, int length = 10)
         {
+            await Task.Delay(1000);
             var types = NoteTypeStore.Types.Skip(start).Take(length);
             return Ok(types);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(Guid id)
+        public async Task<IActionResult> GetById(Guid id)
         {
+            await Task.Delay(1000);
             var type = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (type == null)
                 return new ObjectResult("Type not found") { StatusCode = 404 };
@@ -25,8 +27,9 @@ namespace StandardNotesApi.Controllers
         }
 
         [HttpPost("")]
-        public IActionResult Create(NoteType type)
+        public async Task<IActionResult> Create(NoteType type)
         {
+            await Task.Delay(1000);
             NoteType newType = new NoteType()
             {
                 Name = type.Name,
@@ -36,8 +39,9 @@ namespace StandardNotesApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, NoteType type)
+        public async Task<IActionResult> Update(Guid id, NoteType type)
         {
+            await Task.Delay(1000);
             var newType = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (newType == null)
                 return new ObjectResult("Type not found") { StatusCode = 404 };
@@ -46,8 +50,9 @@ namespace StandardNotesApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Remove(Guid id)
+        public async Task<IActionResult> Remove(Guid id)
         {
+            await Task.Delay(1000);
             var newType = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (newType == null)
                 return new ObjectResult("Type not found") { StatusCode = 404 };
