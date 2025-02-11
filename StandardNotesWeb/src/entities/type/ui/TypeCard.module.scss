@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background-color: #f5f5f5;
+  border: 1px solid #dfe2e7;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.name {
+  font-size: 20px;
+}
+
+.children {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

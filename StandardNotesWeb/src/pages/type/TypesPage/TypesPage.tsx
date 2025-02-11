@@ -1,7 +1,9 @@
-import TypeList from "@/widgets/type/TypeList/TypeList";
+import React, { useEffect, useState } from "react";
+import { Button, CircularProgress } from "@mui/material";
 import classes from "./TypesPage.module.scss";
+import TypesPageSkeleton from "./TypesPage.skeleton";
+import { TypeList } from "@/widgets/type";
 import { TypeHooks } from "@/entities/type";
-import { useEffect, useState } from "react";
 import { TypeCreate } from "@/features/type";
 
 const TypesPage = () => {
@@ -17,16 +19,22 @@ const TypesPage = () => {
     refetch();
   }, []);
 
+  if (isLoading) return <TypesPageSkeleton />;
+
   return (
-    <div className={classes.root}>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <h1>Типы</h1>
-        {!isLoading && isFetching && <span>Перезагрузка...</span>}
-        <button onClick={() => setIsOpenCreate(true)}>Добавить</button>
+    <React.Fragment>
+      <div className={classes.root}>
+        <div className={classes.header}>
+          <h1 className={classes.title}>Типы</h1>
+          <Button variant="contained" onClick={() => setIsOpenCreate(true)} color="success">
+            Добавить
+          </Button>
+          {!isLoading && isFetching && <CircularProgress size="25px" />}
+        </div>
+        <TypeList types={data ?? []} isError={isError} />
       </div>
       <TypeCreate isOpen={isOpenCreate} onClose={onCloseCreate} />
-      <TypeList types={data ?? []} isLoading={isLoading} isError={isError} />
-    </div>
+    </React.Fragment>
   );
 };
 

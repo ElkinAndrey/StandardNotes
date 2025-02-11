@@ -1,11 +1,12 @@
 import classes from "./TypeList.module.scss";
-import React, { FC, useState } from "react";
-import TypeListSkeleton from "./TypeList.skeleton";
+import React, { JSX, useState } from "react";
 import TypeListProps from "./TypeList.props";
 import { Type } from "@/shared/entities";
 import { TypeRemove, TypeUpdate } from "@/features/type";
+import { TypeCard } from "@/entities/type";
+import { Button } from "@mui/material";
 
-const TypeList: FC<TypeListProps> = ({ types = [], isLoading = false, isError = false }) => {
+function TypeList({ types = [], isError = false }: TypeListProps): JSX.Element {
   const [update, setUpdate] = useState<Type | null>(null);
   const [remove, setRemove] = useState<Type | null>(null);
   const [isOpenUpdate, setIsOpenUpdate] = useState<boolean>(false);
@@ -24,26 +25,27 @@ const TypeList: FC<TypeListProps> = ({ types = [], isLoading = false, isError = 
   const onCloseUpdate = () => setIsOpenUpdate(false);
   const onCloseRemove = () => setIsOpenRemove(false);
 
-  if (isLoading) return <TypeListSkeleton />;
-  if (isError) return <h2>Ошибка</h2>;
-  if ((types ?? []).length === 0) return <h2>Список пуст</h2>;
+  if (isError) return <span className={classes.error}>Неизвестная ошибка</span>;
+  if ((types ?? []).length === 0) return <span className={classes.empty}>Список пуст</span>;
 
   return (
     <React.Fragment>
+      <ul className={classes.root}>
+        {(types ?? []).map((type) => (
+          <TypeCard key={type.id} type={type}>
+            <Button onClick={handlerUpdate(type)} variant="contained" color="primary">
+              Изменить
+            </Button>
+            <Button onClick={handlerRemove(type)} variant="contained" color="error">
+              Удалить
+            </Button>
+          </TypeCard>
+        ))}
+      </ul>
       <TypeUpdate type={update} isOpen={isOpenUpdate} onClose={onCloseUpdate} />
       <TypeRemove type={remove} isOpen={isOpenRemove} onClose={onCloseRemove} />
-      <div className={classes.root}>
-        {(types ?? []).map((type) => (
-          <div key={type.id} style={{ margin: "10px", border: "1px solid red" }}>
-            <div>{type.id}</div>
-            <div>{type.name}</div>
-            <button onClick={handlerUpdate(type)}>Изменить</button>
-            <button onClick={handlerRemove(type)}>Удалить</button>
-          </div>
-        ))}
-      </div>
     </React.Fragment>
   );
-};
+}
 
 export default TypeList;

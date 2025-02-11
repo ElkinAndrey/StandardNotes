@@ -12,9 +12,9 @@ namespace StandardNotesApi.Controllers
         [HttpGet("")]
         public async Task<IActionResult> Get(int start = 0, int length = 10)
         {
-            await Task.Delay(300);
+            await Task.Delay(1000);
             Random random = new Random();
-            if (random.NextDouble() < 0.2) throw new Exception();
+            if (random.NextDouble() < 0.1) throw new Exception();
 
             var types = NoteTypeStore.Types.Skip(start).Take(length);
             return Ok(types);
@@ -23,9 +23,9 @@ namespace StandardNotesApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(Guid id)
         {
-            await Task.Delay(300);
+            await Task.Delay(1000);
             Random random = new Random();
-            if (random.NextDouble() < 0.2) throw new Exception();
+            if (random.NextDouble() < 0.1) throw new Exception();
 
             var type = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (type == null)
@@ -36,9 +36,9 @@ namespace StandardNotesApi.Controllers
         [HttpPost("")]
         public async Task<IActionResult> Create(NoteTypeDto type)
         {
-            await Task.Delay(300);
+            await Task.Delay(1000);
             Random random = new Random();
-            if (random.NextDouble() < 0.2) throw new Exception();
+            if (random.NextDouble() < 0.1) throw new Exception();
 
             NoteType newType = new NoteType()
             {
@@ -51,9 +51,9 @@ namespace StandardNotesApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(Guid id, NoteType type)
         {
-            await Task.Delay(300);
+            await Task.Delay(1000);
             Random random = new Random();
-            if (random.NextDouble() < 0.2) throw new Exception();
+            if (random.NextDouble() < 0.1) throw new Exception();
 
             var newType = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (newType == null)
@@ -65,10 +65,10 @@ namespace StandardNotesApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(Guid id)
         {
-            await Task.Delay(300);
+            await Task.Delay(1000);
             Random random = new Random();
-            if (random.NextDouble() < 0.2) throw new Exception();
-                
+            if (random.NextDouble() < 0.1) throw new Exception();
+
             var newType = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (newType == null)
                 return new ObjectResult("Type not found") { StatusCode = 404 };

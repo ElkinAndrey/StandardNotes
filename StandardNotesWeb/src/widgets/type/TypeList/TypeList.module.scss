@@ -1,0 +1,21 @@
+%message {
+  font-size: 18px;
+}
+
+.empty {
+  @extend %message;
+  color: #888888;
+}
+
+.error {
+  @extend %message;
+  color: #ff0000;
+}
+
+.root {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
