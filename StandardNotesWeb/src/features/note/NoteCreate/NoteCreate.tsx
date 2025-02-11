@@ -14,7 +14,7 @@ function NoteCreate({ isOpen = false, onClose = () => {} }: NoteCreateProps): JS
       onClose={onClose}
       note={Init.note}
       fetch={async (value: Note) => await createNote(value).unwrap()}
-      error={(e) => console.log("ОШИБКА ПРИ ДОБАВЛЕНИИ ЗАМЕТКИ", e)}
+      error={(error) => console.log("ОШИБКА ПРИ ДОБАВЛЕНИИ ЗАМЕТКИ", error)}
       title="Добавить заметку"
       button="Добавить"
     />

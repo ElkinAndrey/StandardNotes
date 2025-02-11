@@ -50,7 +50,7 @@ function NoteEdit({
 
   useEffect(() => {
     if (!errorTypes) return;
-    console.log("НЕ УДАЛОСЬ ПОЛУЧИТЬ ТИПЫ", errorTypes);
+    console.log("НЕ УДАЛОСЬ ПОЛУЧИТЬ ТИПЫ ДЛЯ ВЫПАДАЮЩЕГО СПИСКА", errorTypes);
   }, [errorTypes]);
 
   return (

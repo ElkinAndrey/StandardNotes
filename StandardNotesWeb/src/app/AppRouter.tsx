@@ -1,6 +1,6 @@
 import { NotesPage } from "@/pages/note";
 import { TypesPage } from "@/pages/type";
-import { Link, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 const AppRouter = () => {
   return (

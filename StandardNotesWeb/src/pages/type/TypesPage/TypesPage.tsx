@@ -10,11 +10,16 @@ const TypesPage = () => {
   const [isOpenCreate, setIsOpenCreate] = useState<boolean>(false);
   const onCloseCreate = () => setIsOpenCreate(false);
 
-  const { data, isLoading, isError, refetch, isFetching } = TypeHooks.useGet();
+  const { data, isLoading, refetch, isFetching, error } = TypeHooks.useGet();
 
   useEffect(() => {
     refetch();
   }, []);
+
+  useEffect(() => {
+    if (!error) return;
+    console.log("НЕ УДАЛОСЬ ПОЛУЧИТЬ ТИПЫ НА СТРАНИЦЕ", error);
+  }, [error]);
 
   if (isLoading) return <TypesPageSkeleton />;
 
@@ -28,7 +33,7 @@ const TypesPage = () => {
           </Button>
           {!isLoading && isFetching && <CircularProgress size="25px" />}
         </div>
-        <TypeList types={data ?? []} isError={isError} />
+        <TypeList types={data ?? []} />
       </div>
       <TypeCreate isOpen={isOpenCreate} onClose={onCloseCreate} />
     </React.Fragment>

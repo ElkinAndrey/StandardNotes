@@ -11,11 +11,16 @@ function NotesPage(): JSX.Element {
   const [isOpenCreate, setIsOpenCreate] = useState<boolean>(false);
   const onCloseCreate = () => setIsOpenCreate(false);
 
-  const { data, isLoading, isError, refetch, isFetching } = NoteHooks.useGet();
+  const { data, isLoading, error, refetch, isFetching } = NoteHooks.useGet();
 
   useEffect(() => {
     refetch();
   }, []);
+
+  useEffect(() => {
+    if (!error) return;
+    console.log("НЕ УДАЛОСЬ ПОЛУЧИТЬ ЗАМЕТКИ НА СТРАНИЦЕ", error);
+  }, [error]);
 
   if (isLoading) return <NotesPageSkeleton />;
 
@@ -29,7 +34,7 @@ function NotesPage(): JSX.Element {
           </Button>
           {!isLoading && isFetching && <CircularProgress size="25px" />}
         </div>
-        <NoteList notes={data ?? []} isError={isError} />
+        <NoteList notes={data ?? []} />
       </div>
       <NoteCreate isOpen={isOpenCreate} onClose={onCloseCreate} />
     </React.Fragment>

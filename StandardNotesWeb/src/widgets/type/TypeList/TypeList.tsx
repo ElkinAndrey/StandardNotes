@@ -6,7 +6,7 @@ import { TypeRemove, TypeUpdate } from "@/features/type";
 import { TypeCard } from "@/entities/type";
 import { Button } from "@mui/material";
 
-function TypeList({ types = [], isError = false }: TypeListProps): JSX.Element {
+function TypeList({ types = [] }: TypeListProps): JSX.Element {
   const [update, setUpdate] = useState<Type>(Init.type);
   const [remove, setRemove] = useState<Type>(Init.type);
   const [isOpenUpdate, setIsOpenUpdate] = useState<boolean>(false);
@@ -25,7 +25,6 @@ function TypeList({ types = [], isError = false }: TypeListProps): JSX.Element {
   const onCloseUpdate = () => setIsOpenUpdate(false);
   const onCloseRemove = () => setIsOpenRemove(false);
 
-  if (isError) return <span className={classes.error}>Неизвестная ошибка</span>;
   if ((types ?? []).length === 0) return <span className={classes.empty}>Список пуст</span>;
 
   return (

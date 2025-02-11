@@ -14,7 +14,7 @@ function TypeCreate({ isOpen = false, onClose = () => {} }: TypeCreateProps): JS
       onClose={onClose}
       type={Init.type}
       fetch={async (type: Type) => await createType(type).unwrap()}
-      error={(e) => console.log("ОШИБКА ПРИ ДОБАВЛЕНИИ", e)}
+      error={(e) => console.log("ОШИБКА ПРИ ДОБАВЛЕНИИ ТИПА", e)}
       title="Добавить тип"
       button="Добавить"
     />

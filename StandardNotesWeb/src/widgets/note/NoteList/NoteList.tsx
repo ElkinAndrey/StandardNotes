@@ -7,7 +7,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import { NoteRemove, NoteUpdate } from "@/features/note";
 
-function NoteList({ notes = [], isError = false }: NoteListProps) {
+function NoteList({ notes = [] }: NoteListProps) {
   const [update, setUpdate] = useState<Note>(Init.note);
   const [remove, setRemove] = useState<Note>(Init.note);
   const [isOpenUpdate, setIsOpenUpdate] = useState<boolean>(false);
@@ -26,7 +26,6 @@ function NoteList({ notes = [], isError = false }: NoteListProps) {
   const onCloseUpdate = () => setIsOpenUpdate(false);
   const onCloseRemove = () => setIsOpenRemove(false);
 
-  if (isError) return <span className={classes.error}>Неизвестная ошибка</span>;
   if ((notes ?? []).length === 0) return <span className={classes.empty}>Список пуст</span>;
 
   return (

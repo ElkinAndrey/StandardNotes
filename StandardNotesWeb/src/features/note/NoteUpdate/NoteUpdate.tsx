@@ -18,7 +18,7 @@ function NoteUpdate({
       onClose={onClose}
       note={note}
       fetch={async (value: Note) => await updateNote(value).unwrap()}
-      error={(e) => console.log("ОШИБКА ПРИ ИЗМЕНЕНИИ ЗАМЕТКИ", e)}
+      error={(error) => console.log("ОШИБКА ПРИ ИЗМЕНЕНИИ ЗАМЕТКИ", error)}
       title="Изменить заметку"
       button="Изменить"
     />

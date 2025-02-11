@@ -5,7 +5,7 @@ const Logo = () => {
   return (
     <div className={classes.root}>
       <img className={classes.image} src={logo} alt="Логотип" />
-      <span className={classes.text}>Заметки</span>
+      <span className={classes.text}>Простые заметки</span>
     </div>
   );
 };

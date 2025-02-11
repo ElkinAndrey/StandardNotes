@@ -18,7 +18,7 @@ function TypeUpdate({
       onClose={onClose}
       type={type}
       fetch={async (type: Type) => await updateType(type).unwrap()}
-      error={(e) => console.log("ОШИБКА ПРИ ИЗМЕНЕНИИ", e)}
+      error={(error) => console.log("ОШИБКА ПРИ ИЗМЕНЕНИИ ТИПА", error)}
       title="Изменить тип"
       button="Изменить"
     />
