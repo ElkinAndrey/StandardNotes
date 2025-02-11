@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using StandardNotesApi.Dto;
 using StandardNotesApi.Entities;
 using StandardNotesApi.Store;
 
@@ -34,7 +33,7 @@ namespace StandardNotesApi.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> Create(NoteTypeDto type)
+        public async Task<IActionResult> Create(NoteType type)
         {
             await Task.Delay(1000);
             Random random = new Random();

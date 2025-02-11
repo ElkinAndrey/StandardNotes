@@ -7,7 +7,7 @@ interface TypeEditProps {
   isLoading?: boolean;
   type?: Type | null;
   onClose?: () => void;
-  fetch?: (type: Type) => Promise<unknown>;
+  fetch?: (value: Type) => Promise<unknown>;
   error?: (error: unknown) => void;
 }
 

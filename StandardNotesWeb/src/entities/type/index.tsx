@@ -3,4 +3,5 @@ export { typeReducer } from "./model/typeApi";
 export { typeMiddleware } from "./model/typeApi";
 export { TypeHooks } from "./model/typeApi";
 export { default as TypeCard } from "./ui/TypeCard";
-export { default as TypeCardSkeleton } from "./ui/TypeCard.skeleton";
+export { TypeCardSkeleton } from "./ui/TypeCard";
+export { default as TypeSelect } from "./ui/TypeSelect";
