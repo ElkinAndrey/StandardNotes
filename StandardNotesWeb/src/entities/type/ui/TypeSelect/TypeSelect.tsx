@@ -18,7 +18,7 @@ function TypeSelect({
       <InputLabel>Тип заметки</InputLabel>
       <Select label="Тип заметки" value={value.id} onChange={(e) => setTypeById(e.target.value)}>
         <MenuItem value="">
-          <b>Нет типа</b>   
+          <b>Нет типа</b>
         </MenuItem>
         {(types ?? []).map((type) => (
           <MenuItem key={type.id} value={type.id}>

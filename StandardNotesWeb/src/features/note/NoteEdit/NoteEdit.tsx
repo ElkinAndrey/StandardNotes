@@ -63,6 +63,7 @@ function NoteEdit({
             onChange={(e) => setTitle(e.target.value)}
             label="Заголовок"
             variant="filled"
+            autoFocus
           />
           <TextField
             value={newNote.text}

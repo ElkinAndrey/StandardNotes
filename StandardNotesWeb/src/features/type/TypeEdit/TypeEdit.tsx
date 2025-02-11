@@ -1,4 +1,4 @@
-import { FC, JSX, useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 import { Init, Type } from "@/shared/entities";
 import TypeEditProps from "./TypeEdit.props";
 import {
@@ -47,6 +47,7 @@ function TypeEdit({
           onChange={(e) => setName(e.target.value)}
           label="Название"
           variant="filled"
+          autoFocus
         />
       </DialogContent>
       <DialogActions>
