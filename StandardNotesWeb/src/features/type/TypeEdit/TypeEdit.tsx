@@ -9,6 +9,10 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import { Check } from "@/shared/utils";
+
+const initErrors = { name: "" };
+const errorMessages = { name: { empty: "Укажите название типа" } };
 
 function TypeEdit({
   isOpen = false,
@@ -21,9 +25,21 @@ function TypeEdit({
   button = "",
 }: TypeEditProps): JSX.Element {
   const [newType, setNewType] = useState<Type>(Init.type);
+  const [errors, setErrors] = useState({ ...initErrors });
 
   const setName = (value: string) => setNewType({ ...newType, name: value });
+  const getNameError = () => new Check(newType.name, errorMessages.name).isEmpty().resultFirst();
+
+  const checkName = () => {
+    const error = getNameError();
+    setErrors({ ...errors, name: error });
+    return !error;
+  };
+
   const handler = async () => {
+    const nameError = getNameError();
+    setErrors({ ...errors, name: nameError });
+    if (nameError) return;
     try {
       await fetch(newType);
       onClose();
@@ -34,8 +50,8 @@ function TypeEdit({
 
   useEffect(() => {
     if (!isOpen) return;
-    const newType = type ?? Init.type;
-    setNewType({ ...newType });
+    setNewType({ ...(type ?? Init.type) });
+    setErrors({ ...initErrors });
   }, [isOpen]);
 
   return (
@@ -43,11 +59,13 @@ function TypeEdit({
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <TextField
-          value={newType.name}
-          onChange={(e) => setName(e.target.value)}
           label="Название"
           variant="filled"
-          autoFocus
+          value={newType.name}
+          onChange={(e) => setName(e.target.value)}
+          onBlur={checkName}
+          error={errors.name !== ""}
+          helperText={errors.name}
         />
       </DialogContent>
       <DialogActions>
