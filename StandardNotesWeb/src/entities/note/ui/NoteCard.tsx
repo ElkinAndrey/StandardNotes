@@ -18,7 +18,7 @@ function NoteCard({ note = Init.note, children = null }: NoteCardProps): JSX.Ele
         <div className={classes.children}>{children}</div>
       </div>
       <div className={classes.delimiter}></div>
-      <span>{note.text}</span>
+      <span className={classes.text}>{note.text}</span>
     </li>
   );
 }
