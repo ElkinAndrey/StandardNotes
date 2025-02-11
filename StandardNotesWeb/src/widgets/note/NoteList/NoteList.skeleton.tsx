@@ -1,13 +1,13 @@
 import { JSX } from "react";
 import classes from "./NoteList.module.scss";
-import { TypeCardSkeleton } from "@/entities/type";
+import { NoteCardSkeleton } from "@/entities/note";
 
 function NoteListSkeleton(): JSX.Element {
   return (
     <div className={classes.root}>
-      <TypeCardSkeleton />
-      <TypeCardSkeleton />
-      <TypeCardSkeleton />
+      <NoteCardSkeleton />
+      <NoteCardSkeleton />
+      <NoteCardSkeleton />
     </div>
   );
 }
