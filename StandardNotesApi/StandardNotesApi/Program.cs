@@ -1,3 +1,5 @@
+using StandardNotesApi.Middlewares;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -21,4 +23,8 @@ app.UseCors(options =>
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
+
+app.UseTimeoutMiddleware(1000);
+app.UseRandomErrorsMiddleware(0.1);
+
 app.Run();

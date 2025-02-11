@@ -9,23 +9,15 @@ namespace StandardNotesApi.Controllers
     public class NoteTypeController : ControllerBase
     {
         [HttpGet("")]
-        public async Task<IActionResult> Get()
+        public IActionResult Get()
         {
-            await Task.Delay(1000);
-            Random random = new Random();
-            if (random.NextDouble() < 0.1) throw new Exception();
-
             var types = NoteTypeStore.Types;
             return Ok(types);
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(Guid id)
+        public IActionResult GetById(Guid id)
         {
-            await Task.Delay(1000);
-            Random random = new Random();
-            if (random.NextDouble() < 0.1) throw new Exception();
-
             var type = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (type == null)
                 return new ObjectResult("Type not found") { StatusCode = 404 };
@@ -33,12 +25,8 @@ namespace StandardNotesApi.Controllers
         }
 
         [HttpPost("")]
-        public async Task<IActionResult> Create(NoteType type)
+        public IActionResult Create(NoteType type)
         {
-            await Task.Delay(1000);
-            Random random = new Random();
-            if (random.NextDouble() < 0.1) throw new Exception();
-
             NoteType newType = new NoteType()
             {
                 Name = type.Name,
@@ -48,12 +36,8 @@ namespace StandardNotesApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(Guid id, NoteType type)
+        public IActionResult Update(Guid id, NoteType type)
         {
-            await Task.Delay(1000);
-            Random random = new Random();
-            if (random.NextDouble() < 0.1) throw new Exception();
-
             var newType = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (newType == null)
                 return new ObjectResult("Type not found") { StatusCode = 404 };
@@ -62,12 +46,8 @@ namespace StandardNotesApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Remove(Guid id)
+        public IActionResult Remove(Guid id)
         {
-            await Task.Delay(1000);
-            Random random = new Random();
-            if (random.NextDouble() < 0.1) throw new Exception();
-
             var newType = NoteTypeStore.Types.FirstOrDefault(type => type.Id == id);
             if (newType == null)
                 return new ObjectResult("Type not found") { StatusCode = 404 };
