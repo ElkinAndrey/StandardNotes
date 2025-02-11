@@ -1,9 +1,11 @@
 .root {
   display: flex;
   background-color: #171321;
-  padding: 10px 20px;
+  padding: 10px;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .buttons {
