@@ -12,11 +12,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 app.UseCors(options =>
-    options.WithOrigins(builder.Configuration.GetSection("ClientUrl").Value!)
+    options.WithOrigins("*")
         .AllowAnyHeader()
-        .AllowAnyMethod()
-        .AllowCredentials());
+        .AllowAnyMethod());
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
