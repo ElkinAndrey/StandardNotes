@@ -1,10 +1,14 @@
-import { FC } from "react";
+import { JSX } from "react";
 import TypeUpdateProps from "./TypeUpdate.props";
-import { Type } from "@/shared/entities";
+import { Init, Type } from "@/shared/entities";
 import { TypeHooks } from "@/entities/type";
 import TypeEdit from "../TypeEdit";
 
-const TypeUpdate: FC<TypeUpdateProps> = ({ isOpen = false, onClose = () => {}, type = null }) => {
+function TypeUpdate({
+  isOpen = false,
+  onClose = () => {},
+  type = Init.type,
+}: TypeUpdateProps): JSX.Element {
   const [updateType, { isLoading }] = TypeHooks.useUpdate();
 
   return (
@@ -19,6 +23,6 @@ const TypeUpdate: FC<TypeUpdateProps> = ({ isOpen = false, onClose = () => {}, t
       button="Изменить"
     />
   );
-};
+}
 
 export default TypeUpdate;

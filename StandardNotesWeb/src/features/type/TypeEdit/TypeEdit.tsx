@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from "react";
-import { Type } from "@/shared/entities";
+import { FC, JSX, useEffect, useState } from "react";
+import { Init, Type } from "@/shared/entities";
 import TypeEditProps from "./TypeEdit.props";
 import {
   Button,
@@ -10,17 +10,17 @@ import {
   TextField,
 } from "@mui/material";
 
-const TypeEdit: FC<TypeEditProps> = ({
+function TypeEdit({
   isOpen = false,
   isLoading = false,
   onClose = () => {},
-  type = { id: "", name: "" },
+  type = Init.type,
   fetch = async (_: Type) => {},
   error = (_: unknown) => {},
   title = "",
   button = "",
-}) => {
-  const [newType, setNewType] = useState<Type>({ id: "", name: "" });
+}: TypeEditProps): JSX.Element {
+  const [newType, setNewType] = useState<Type>(Init.type);
 
   const setName = (value: string) => setNewType({ ...newType, name: value });
   const handler = async () => {
@@ -34,7 +34,7 @@ const TypeEdit: FC<TypeEditProps> = ({
 
   useEffect(() => {
     if (!isOpen) return;
-    const newType = type ?? { id: "", name: "" };
+    const newType = type ?? Init.type;
     setNewType({ ...newType });
   }, [isOpen]);
 
@@ -57,6 +57,6 @@ const TypeEdit: FC<TypeEditProps> = ({
       </DialogActions>
     </Dialog>
   );
-};
+}
 
 export default TypeEdit;

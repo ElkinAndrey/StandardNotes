@@ -1,39 +1,26 @@
-import { FC, useEffect, useState } from "react";
+import { JSX } from "react";
 import TypeRemoveProps from "./TypeRemove.props";
 import { TypeHooks } from "@/entities/type";
-import { Type } from "@/shared/entities";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from "@mui/material";
+import { RemoveDialog } from "@/shared/ui";
+import { Init } from "@/shared/entities";
 
-const TypeRemove: FC<TypeRemoveProps> = ({ isOpen = false, onClose = () => {}, type = null }) => {
-  const [newType, setNewType] = useState<Type>({ id: "", name: "" });
+function TypeRemove({
+  isOpen = false,
+  onClose = () => {},
+  type = Init.type,
+}: TypeRemoveProps): JSX.Element {
   const [removeType, { isLoading }] = TypeHooks.useRemove();
 
-  const handlerRemove = async () => {
-    try {
-      await removeType(newType.id).unwrap();
-      onClose();
-    } catch (error) {
-      console.log("ОШИБКА ПРИ УДАЛЕНИИ", error);
-    }
-  };
-
-  useEffect(() => {
-    const newType = type ?? { id: "", name: "" };
-    setNewType({ ...newType });
-  }, [type]);
-
   return (
-    <Dialog open={isOpen} onClose={onClose}>
-      <DialogTitle>Удалить тип</DialogTitle>
-      <DialogContent>{`Вы уверены, что хотите удалить тип "${newType.name}"`}</DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Отмена</Button>
-        <Button onClick={handlerRemove} loading={isLoading}>
-          Удалить
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <RemoveDialog
+      text={`Вы уверены, что хотите удалить тип "${type.name}"`}
+      isOpen={isOpen}
+      isLoading={isLoading}
+      onClose={onClose}
+      remove={async () => await removeType(type.id).unwrap()}
+      error={(error) => console.log("ОШИБКА ПРИ УДАЛЕНИИ ТИПА", error)}
+    />
   );
-};
+}
 
 export default TypeRemove;

@@ -1,14 +1,14 @@
 import classes from "./TypeList.module.scss";
 import React, { JSX, useState } from "react";
 import TypeListProps from "./TypeList.props";
-import { Type } from "@/shared/entities";
+import { Init, Type } from "@/shared/entities";
 import { TypeRemove, TypeUpdate } from "@/features/type";
 import { TypeCard } from "@/entities/type";
 import { Button } from "@mui/material";
 
 function TypeList({ types = [], isError = false }: TypeListProps): JSX.Element {
-  const [update, setUpdate] = useState<Type | null>(null);
-  const [remove, setRemove] = useState<Type | null>(null);
+  const [update, setUpdate] = useState<Type>(Init.type);
+  const [remove, setRemove] = useState<Type>(Init.type);
   const [isOpenUpdate, setIsOpenUpdate] = useState<boolean>(false);
   const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false);
 

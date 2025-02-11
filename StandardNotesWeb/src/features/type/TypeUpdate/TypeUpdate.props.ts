@@ -1,7 +1,7 @@
 import { Type } from "@/shared/entities";
 
 interface TypeUpdateProps {
-  type?: Type | null;
+  type?: Type;
   isOpen?: boolean;
   onClose?: () => void;
 }

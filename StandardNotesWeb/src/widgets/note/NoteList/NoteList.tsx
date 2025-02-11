@@ -1,15 +1,15 @@
 import { useState } from "react";
 import classes from "./NoteList.module.scss";
 import NoteListProps from "./NoteList.props";
-import { Note } from "@/shared/entities";
+import { Init, Note } from "@/shared/entities";
 import { NoteCard } from "@/entities/note";
 import { Button } from "@mui/material";
 import React from "react";
-import { NoteUpdate } from "@/features/note";
+import { NoteRemove, NoteUpdate } from "@/features/note";
 
 function NoteList({ notes = [], isError = false }: NoteListProps) {
-  const [update, setUpdate] = useState<Note | null>(null);
-  const [remove, setRemove] = useState<Note | null>(null);
+  const [update, setUpdate] = useState<Note>(Init.note);
+  const [remove, setRemove] = useState<Note>(Init.note);
   const [isOpenUpdate, setIsOpenUpdate] = useState<boolean>(false);
   const [isOpenRemove, setIsOpenRemove] = useState<boolean>(false);
 
@@ -44,6 +44,7 @@ function NoteList({ notes = [], isError = false }: NoteListProps) {
         ))}
       </div>
       <NoteUpdate note={update} isOpen={isOpenUpdate} onClose={onCloseUpdate} />
+      <NoteRemove note={remove} isOpen={isOpenRemove} onClose={onCloseRemove} />
     </React.Fragment>
   );
 }

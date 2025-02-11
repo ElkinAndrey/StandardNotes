@@ -5,7 +5,7 @@ interface NoteEditProps {
   title?: string;
   button?: string;
   isLoading?: boolean;
-  note?: Note | null;
+  note?: Note;
   onClose?: () => void;
   fetch?: (value: Note) => Promise<unknown>;
   error?: (error: unknown) => void;

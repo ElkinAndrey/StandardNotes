@@ -73,7 +73,7 @@ function NoteEdit({
             maxRows={4}
             minRows={4}
           />
-          <TypeSelect types={types} value={newNote?.type ?? Init.type} setValue={setType} />
+          <TypeSelect types={types} value={newNote.type ?? Init.type} setValue={setType} />
         </div>
       </DialogContent>
       <DialogActions>

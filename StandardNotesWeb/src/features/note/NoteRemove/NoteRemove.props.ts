@@ -1,9 +1,9 @@
 import { Note } from "@/shared/entities";
 
-interface NoteUpdateProps {
+interface NoteRemoveProps {
   note?: Note;
   isOpen?: boolean;
   onClose?: () => void;
 }
 
-export default NoteUpdateProps;
+export default NoteRemoveProps;

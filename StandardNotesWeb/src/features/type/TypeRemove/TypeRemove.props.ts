@@ -1,7 +1,7 @@
 import { Type } from "@/shared/entities";
 
 interface TypeRemoveProps {
-  type?: Type | null;
+  type?: Type;
   isOpen?: boolean;
   onClose?: () => void;
 }
