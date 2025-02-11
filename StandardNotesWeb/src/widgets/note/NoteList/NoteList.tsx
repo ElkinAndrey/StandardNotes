@@ -4,6 +4,8 @@ import NoteListProps from "./NoteList.props";
 import { Note } from "@/shared/entities";
 import { NoteCard } from "@/entities/note";
 import { Button } from "@mui/material";
+import React from "react";
+import { NoteUpdate } from "@/features/note";
 
 function NoteList({ notes = [], isError = false }: NoteListProps) {
   const [update, setUpdate] = useState<Note | null>(null);
@@ -28,18 +30,21 @@ function NoteList({ notes = [], isError = false }: NoteListProps) {
   if ((notes ?? []).length === 0) return <span className={classes.empty}>Список пуст</span>;
 
   return (
-    <div className={classes.root}>
-      {notes.map((note) => (
-        <NoteCard key={note.id} note={note}>
-          <Button onClick={handlerUpdate(note)} variant="contained" color="primary">
-            Изменить
-          </Button>
-          <Button onClick={handlerRemove(note)} variant="contained" color="error">
-            Удалить
-          </Button>
-        </NoteCard>
-      ))}
-    </div>
+    <React.Fragment>
+      <div className={classes.root}>
+        {notes.map((note) => (
+          <NoteCard key={note.id} note={note}>
+            <Button onClick={handlerUpdate(note)} variant="contained" color="primary">
+              Изменить
+            </Button>
+            <Button onClick={handlerRemove(note)} variant="contained" color="error">
+              Удалить
+            </Button>
+          </NoteCard>
+        ))}
+      </div>
+      <NoteUpdate note={update} isOpen={isOpenUpdate} onClose={onCloseUpdate} />
+    </React.Fragment>
   );
 }
 
