@@ -11,17 +11,10 @@ import {
 } from "@mui/material";
 import { Init, Note, Type } from "@/shared/entities";
 import { TypeHooks, TypeSelect } from "@/entities/type";
-import { Check } from "@/shared/utils";
+import { Check, useCheck } from "@/shared/utils";
 
-const initErrors = {
-  title: "",
-  text: "",
-};
-
-const errorMessages = {
-  title: { empty: "Укажите название заметки" },
-  text: { empty: "Укажите текст заметки" },
-};
+const titleEmpty = "Укажите название заметки";
+const textEmpty = "Укажите текст заметки";
 
 function NoteEdit({
   isOpen = false,
@@ -33,34 +26,17 @@ function NoteEdit({
   title = "",
   button = "",
 }: NoteEditProps): JSX.Element {
-  const [newNote, setNewNote] = useState<Note>(Init.note);
-  const [errors, setErrors] = useState({ ...initErrors });
   const { data: types, error: errorTypes, refetch: refetchTypes } = TypeHooks.useGet();
+  const [newNote, setNewNote] = useState<Note>(Init.note);
+  const [errorTitle, checkTitle, resetTitle] = useCheck(newNote.title, { empty: titleEmpty });
+  const [errorText, checkText, resetText] = useCheck(newNote.text, { empty: textEmpty });
 
   const setTitle = (value: string) => setNewNote({ ...newNote, title: value });
   const setText = (value: string) => setNewNote({ ...newNote, text: value });
   const setType = (value: Type) => setNewNote({ ...newNote, type: value });
 
-  const getTitleError = () => new Check(newNote.title, errorMessages.title).isEmpty().resultFirst();
-  const getTextError = () => new Check(newNote.text, errorMessages.text).isEmpty().resultFirst();
-
-  const checkTitle = () => {
-    const error = getTitleError();
-    setErrors({ ...errors, title: error });
-    return !error;
-  };
-
-  const checkText = () => {
-    const error = getTextError();
-    setErrors({ ...errors, text: error });
-    return !error;
-  };
-
   const handler = async () => {
-    const titleError = getTitleError();
-    const textError = getTextError();
-    setErrors({ ...errors, title: titleError, text: textError });
-    if (titleError || textError) return;
+    if (checkTitle() && checkText()) return;
     try {
       await fetch(newNote);
       onClose();
@@ -76,7 +52,8 @@ function NoteEdit({
   useEffect(() => {
     if (!isOpen) return;
     setNewNote({ ...(note ?? Init.note) });
-    setErrors({ ...initErrors });
+    resetTitle();
+    resetText();
   }, [isOpen]);
 
   useEffect(() => {
@@ -90,25 +67,25 @@ function NoteEdit({
       <DialogContent>
         <div className={classes.inputs}>
           <TextField
-            value={newNote.title}
-            onChange={(e) => setTitle(e.target.value)}
-            label="Заголовок"
             variant="filled"
+            label="Заголовок"
+            helperText={errorTitle}
+            value={newNote.title}
+            error={errorTitle !== ""}
+            onChange={(e) => setTitle(e.target.value)}
             onBlur={checkTitle}
-            error={errors.title !== ""}
-            helperText={errors.title}
           />
           <TextField
-            value={newNote.text}
-            onChange={(e) => setText(e.target.value)}
-            label="Текст"
-            variant="filled"
             multiline
-            maxRows={4}
             minRows={4}
+            maxRows={4}
+            variant="filled"
+            label="Текст"
+            helperText={errorText}
+            value={newNote.text}
+            error={errorText !== ""}
+            onChange={(e) => setText(e.target.value)}
             onBlur={checkText}
-            error={errors.text !== ""}
-            helperText={errors.text}
           />
           <TypeSelect types={types} value={newNote.type ?? Init.type} setValue={setType} />
         </div>

@@ -1,21 +1,5 @@
-type stateType = {
-  text: string;
-  number: number | null;
-};
-
-type statesType = {
-  empty: stateType;
-  notEmail: stateType;
-  min: stateType;
-  max: stateType;
-};
-
-type messagesType = {
-  empty?: string;
-  notEmail?: string;
-  min?: string;
-  max?: string;
-};
+import statesType from "./statesType";
+import textsType from "./textsType";
 
 class Check {
   private _index = 0;
@@ -27,7 +11,7 @@ class Check {
     max: { text: "", number: null },
   };
 
-  constructor(value: string = "", messages: messagesType = {}) {
+  constructor(value: string = "", messages: textsType = {}) {
     this.value = value;
     this.state.empty.text = messages.empty ?? "Укажите значение";
     this.state.notEmail.text = messages.notEmail ?? "Проверьте адрес электронной почты";
