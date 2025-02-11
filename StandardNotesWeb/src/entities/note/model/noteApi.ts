@@ -10,9 +10,6 @@ const noteApi = createApi({
       query: () => ({ url: `/notes` }),
       providesTags: () => ["Post"],
     }),
-    getById: builder.query<Note, string>({
-      query: (id) => ({ url: `/notes/${id}` }),
-    }),
     create: builder.mutation<Note, Note>({
       query: (value) => ({ url: `/notes`, method: "POST", body: value }),
       invalidatesTags: ["Post"],
@@ -29,8 +26,12 @@ const noteApi = createApi({
 });
 
 class NoteHooks {
-  public static useGet = noteApi.useGetQuery;
-  public static useGetById = noteApi.useGetByIdQuery;
+  public static useGet = () =>
+    noteApi.useGetQuery(undefined, {
+      pollingInterval: 60000,
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    });
   public static useCreate = noteApi.useCreateMutation;
   public static useUpdate = noteApi.useUpdateMutation;
   public static useRemove = noteApi.useRemoveMutation;

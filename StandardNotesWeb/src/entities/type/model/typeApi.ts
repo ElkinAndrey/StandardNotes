@@ -10,9 +10,6 @@ const typeApi = createApi({
       query: () => ({ url: `/types` }),
       providesTags: () => ["Post"],
     }),
-    getById: builder.query<Type, string>({
-      query: (id) => ({ url: `/types/${id}` }),
-    }),
     create: builder.mutation<Type, Type>({
       query: (type) => ({ url: `/types`, method: "POST", body: type }),
       invalidatesTags: ["Post"],
@@ -29,8 +26,12 @@ const typeApi = createApi({
 });
 
 class TypeHooks {
-  public static useGet = typeApi.useGetQuery;
-  public static useGetById = typeApi.useGetByIdQuery;
+  public static useGet = () =>
+    typeApi.useGetQuery(undefined, {
+      pollingInterval: 60000,
+      refetchOnFocus: true,
+      refetchOnReconnect: true,
+    });
   public static useCreate = typeApi.useCreateMutation;
   public static useUpdate = typeApi.useUpdateMutation;
   public static useRemove = typeApi.useRemoveMutation;
