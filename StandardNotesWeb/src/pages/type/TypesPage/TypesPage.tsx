@@ -10,10 +10,7 @@ const TypesPage = () => {
   const [isOpenCreate, setIsOpenCreate] = useState<boolean>(false);
   const onCloseCreate = () => setIsOpenCreate(false);
 
-  const { data, isLoading, isError, refetch, isFetching } = TypeHooks.useGet({
-    start: 0,
-    length: 10,
-  });
+  const { data, isLoading, isError, refetch, isFetching } = TypeHooks.useGet();
 
   useEffect(() => {
     refetch();

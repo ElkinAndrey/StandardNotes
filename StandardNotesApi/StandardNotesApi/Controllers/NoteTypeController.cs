@@ -10,13 +10,13 @@ namespace StandardNotesApi.Controllers
     public class NoteTypeController : ControllerBase
     {
         [HttpGet("")]
-        public async Task<IActionResult> Get(int start = 0, int length = 10)
+        public async Task<IActionResult> Get()
         {
             await Task.Delay(1000);
             Random random = new Random();
             if (random.NextDouble() < 0.1) throw new Exception();
 
-            var types = NoteTypeStore.Types.Skip(start).Take(length);
+            var types = NoteTypeStore.Types;
             return Ok(types);
         }
 

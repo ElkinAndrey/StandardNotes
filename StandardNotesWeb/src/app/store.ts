@@ -1,15 +1,17 @@
-import { typeReducer, typeReducerPath } from "@/entities/type";
-import { typeMiddleware } from "@/entities/type";
+import { noteMiddleware, noteReducer, noteReducerPath } from "@/entities/note";
+import { typeMiddleware, typeReducer, typeReducerPath } from "@/entities/type";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
+  [noteReducerPath]: noteReducer,
   [typeReducerPath]: typeReducer,
 });
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(typeMiddleware),
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().concat(typeMiddleware, noteMiddleware),
   });
 };
 

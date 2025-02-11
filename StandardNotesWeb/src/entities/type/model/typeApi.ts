@@ -6,8 +6,8 @@ const typeApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://localhost:7079/api" }),
   tagTypes: ["Post"],
   endpoints: (builder) => ({
-    get: builder.query<Type[], { start: number; length: number }>({
-      query: ({ start, length }) => ({ url: `/types`, params: { start, length } }),
+    get: builder.query<Type[], void>({
+      query: () => ({ url: `/types` }),
       providesTags: () => ["Post"],
     }),
     getById: builder.query<Type, string>({
