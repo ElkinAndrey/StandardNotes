@@ -1,14 +1,12 @@
 import "./styles/base.css";
-import { BrowserRouter, Link } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import AppRouter from "./AppRouter";
+import { Header } from "@/widgets/header";
 
 const App = () => {
   return (
     <BrowserRouter>
-      <header style={{ display: "flex", gap: "10px" }}>
-        <Link to="/">Заметки</Link>
-        <Link to="/types">Типы</Link>
-      </header>
+      <Header />
       <AppRouter />
     </BrowserRouter>
   );
